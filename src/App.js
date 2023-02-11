@@ -1,6 +1,5 @@
 import { Switch, Route } from 'react-router-dom';
 
-import Layout from './components/Layout/Layout';
 import ResponsiveAppBar from './components/ResponsiveAppBar';
 import ApartmentsPage from './pages/ApartmentsPage';
 import AuthPage from './pages/AuthPage';
@@ -11,7 +10,6 @@ function App() {
   return (
     <div>
     <ResponsiveAppBar/>
-    {/* <Layout> */}
       <Switch>
         <Route path='/' exact>
           <HomePage />
@@ -26,7 +24,6 @@ function App() {
           <ApartmentsPage />
         </Route>
       </Switch>
-    {/* </Layout> */}
     </div>
   );
 }
