@@ -1,9 +1,14 @@
-
+import classes from './AddApartmentForm.module.css';
 
 const AddApartmentForm = () => {
-    return (
-      <div>add works!</div>
-    
+
+const [isLogin, setIsLogin] = useState(true);
+
+  return (
+      <section className={classes.auth}>
+        
+        </section>
+      
     )
 }
 

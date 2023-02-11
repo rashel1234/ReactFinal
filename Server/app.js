@@ -8,7 +8,7 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apartmentsRouter = require('./routes/apartments');
-const { connectToMongo } = require('./dbUtils');
+const { connectToMongo, scrapeCountries } = require('./dbUtils');
 
 var app = express();
 
@@ -45,6 +45,7 @@ app.use(function(err, req, res, next) {
 
 connectToMongo();
 
+// scrapeCountries();
 //TODO: scrape cities and locations
 
 module.exports = app;
