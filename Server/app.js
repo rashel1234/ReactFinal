@@ -45,4 +45,6 @@ app.use(function(err, req, res, next) {
 
 connectToMongo();
 
+//TODO: scrape cities and locations
+
 module.exports = app;
