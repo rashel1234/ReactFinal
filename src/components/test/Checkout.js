@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { Fragment, useState, useEffect } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -12,31 +12,33 @@ import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import AddressForm from './AddressForm';
-import PaymentForm from './PaymentForm';
+import ListingForm from './ListingForm';
+import LocationForm from './LocationForm';
 import Review from './Review';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+
+// function Copyright() {
+//   return (
+//     <Typography variant="body2" color="text.secondary" align="center">
+//       {'Copyright © '}
+//       <Link color="inherit" href="https://mui.com/">
+//         Airbnb
+//       </Link>{' '}
+//       {new Date().getFullYear()}
+//       {'.'}
+//     </Typography>
+//   );
+// }
+
+const steps = ['Availability & Price', 'Apartment Location', 'Review your listing'];
 
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <ListingForm />;
     case 1:
-      return <PaymentForm />;
+      return <LocationForm />;
     case 2:
       return <Review />;
     default:
@@ -47,7 +49,8 @@ function getStepContent(step) {
 const theme = createTheme();
 
 export default function Checkout() {
-  const [activeStep, setActiveStep] = React.useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  const [data, setData] = useState();
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -78,7 +81,7 @@ export default function Checkout() {
       <Container component="main" maxWidth="sm" sx={{ mb: 4 }}>
         <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
           <Typography component="h1" variant="h4" align="center">
-            Checkout
+            Add Apartment
           </Typography>
           <Stepper activeStep={activeStep} sx={{ pt: 3, pb: 5 }}>
             {steps.map((label) => (
@@ -88,7 +91,7 @@ export default function Checkout() {
             ))}
           </Stepper>
           {activeStep === steps.length ? (
-            <React.Fragment>
+            <Fragment>
               <Typography variant="h5" gutterBottom>
                 Thank you for your order.
               </Typography>
@@ -97,9 +100,9 @@ export default function Checkout() {
                 confirmation, and will send you an update when your order has
                 shipped.
               </Typography>
-            </React.Fragment>
+            </Fragment>
           ) : (
-            <React.Fragment>
+            <Fragment>
               {getStepContent(activeStep)}
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {activeStep !== 0 && (
@@ -116,10 +119,10 @@ export default function Checkout() {
                   {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                 </Button>
               </Box>
-            </React.Fragment>
+            </Fragment>
           )}
         </Paper>
-        <Copyright />
+        {/* <Copyrig ht /> */}
       </Container>
     </ThemeProvider>
   );

@@ -7,7 +7,7 @@ import HomePage from './pages/HomePage';
 import About from './pages/About';
 import AddApartment from './pages/AddApartment';
 
-import Checkout from './components/test/Checkout.js ';
+import Checkout from './components/test/Checkout.js';
 
 function App() {
   return (

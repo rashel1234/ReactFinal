@@ -130,4 +130,22 @@ async function scrapeCountries() {
     });
 }
 
-module.exports = { getApartments, insertUser, scrapeCountries, connectToMongo };
+async function getCountries() {
+  const countriesList = await country.find({}).select("country"); //TODO index
+  return JSON.stringify(countriesList.map((obj) => obj.country));
+}
+async function getCitiesByCountry(countryInput) {
+  const citiesList = await country
+    .findOne({ country: countryInput });
+    
+  return JSON.stringify(citiesList.cities);
+}
+
+module.exports = {
+  getApartments,
+  insertUser,
+  scrapeCountries,
+  getCountries,
+  getCitiesByCountry,
+  connectToMongo,
+};

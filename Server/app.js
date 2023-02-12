@@ -8,6 +8,7 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apartmentsRouter = require('./routes/apartments');
+var countriesRouter = require('./routes/countries');
 const { connectToMongo, scrapeCountries } = require('./dbUtils');
 
 var app = express();
@@ -26,6 +27,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/apartmentsData', apartmentsRouter);
+app.use('/countries', countriesRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
