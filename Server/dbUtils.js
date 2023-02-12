@@ -113,6 +113,18 @@ async function insertUser(userObject) {
   });
 }
 
+async function insertApartment(aptData){
+  var aptRecord = new apartment(aptData);
+
+  aptRecord.save((err, user) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(user.fullName);
+    }
+  });
+}
+
 async function scrapeCountries() {
   fetch("https://countriesnow.space/api/v0.1/countries", {})
     .then((promise) => promise.json())
@@ -144,6 +156,7 @@ async function getCitiesByCountry(countryInput) {
 module.exports = {
   getApartments,
   insertUser,
+  insertApartment,
   scrapeCountries,
   getCountries,
   getCitiesByCountry,

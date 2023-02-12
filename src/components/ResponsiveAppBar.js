@@ -14,7 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import HouseIcon from "@mui/icons-material/House";
 
-const pages = ["apartments", "About"];
+const pages = ["apartments", "About","addlisting"];
 const settings = ["Auth", "Profile", "Account", "Dashboard", "HouseIconut"];
 
 function ResponsiveAppBar() {

@@ -11,15 +11,8 @@ import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 
-export default function ListingForm() {
-  const [listingData, setListingData] = useState({
-    name: "",
-    description: "",
-    rooms: 1,
-    price: 100,
-    startDate: new Date(),
-    endDate: new Date(),
-  });
+export default function ListingForm({setParentListingData, initialListingData}) {
+  const [listingData, setListingData] = useState(initialListingData);
 
   function validate(value, regex) {
     console.log("validateing");
@@ -31,9 +24,10 @@ export default function ListingForm() {
   function handleListingParam(param, value) {
     let data = JSON.parse(JSON.stringify(listingData));
     data[param] = value;
-    // console.log(data);
+    console.log(data);
     setListingData(data);
-    // console.log(listingData);
+    setParentListingData(data);
+    // console.log(setParentListingData);
   }
 
   return (
@@ -48,6 +42,8 @@ export default function ListingForm() {
             id="name"
             name="name"
             label="name"
+            value={listingData.name}
+            onChange={(event)=>handleListingParam('name', event.target.value)}
             helperText="how it will be seen on the site"
             fullWidth
             // autoComplete="shipping address-line1"
@@ -60,6 +56,8 @@ export default function ListingForm() {
             id="description"
             name="description"
             label="description"
+            value={listingData.description}
+            onChange={(event)=>handleListingParam('description', event.target.value)}
             // helperText="how it will be seen on the site"
             fullWidth
             // autoComplete="shipping address-line1"
@@ -72,6 +70,8 @@ export default function ListingForm() {
             id="rooms"
             name="rooms"
             label="number or rooms"
+            value={listingData.rooms}
+            onChange={(event)=>handleListingParam('rooms', event.target.value)}
             fullWidth
             variant="standard"
           />
@@ -80,12 +80,9 @@ export default function ListingForm() {
           <TextField
             required
             id="price"
-            key={listingData.price}
-            // value={listingData.price}
-            onChange={(event) =>
-              handleListingParam("price", event.target.value)
-            }
-            error={!validate(listingData.price, "[0-9]")}
+            value={listingData.price}
+            onChange={(event)=>handleListingParam('price', event.target.value)}
+            // error={!validate(listingData.price, "[0-9]")}
             // inputProps={{
             InputProps={{
               startAdornment: "₪ ",
@@ -104,8 +101,8 @@ export default function ListingForm() {
             <DesktopDatePicker
               label="Start Date"
               inputFormat="DD/MM/YYYY"
-              // value={value}
-              // onChange={handleChange}
+              value={listingData.startDate}
+              onChange={(event)=>handleListingParam('startDate', event.target.value)}
               renderInput={(params) => <TextField {...params} />}
             />
           </Grid>
@@ -113,8 +110,8 @@ export default function ListingForm() {
             <DesktopDatePicker
               label="End Date"
               inputFormat="DD/MM/YYYY"
-              // value={value}
-              // onChange={handleChange}
+              value={listingData.endDate}
+              onChange={(event)=>handleListingParam('endDate', event.target.value)}
               renderInput={(params) => <TextField {...params} />}
             />
           </Grid>

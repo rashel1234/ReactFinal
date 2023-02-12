@@ -6,30 +6,34 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import { Autocomplete } from "@mui/material";
 
-export default function LocationForm() {
+export default function LocationForm({
+  setParentLocationData,
+  initialLocationData,
+}) {
   const [countries, setCountries] = useState([]);
-  const [selected, setSelected] = useState({country:'', city:''});
-  // const [selectedCountry, setSelectedCountry] = useState('');
-  // const [selectedCity, setSelectedCity] = useState('');
   const [cities, setCities] = useState([]);
-  const [apartmentData, setApartmentData] = useState({
-    address: '',
-    country: '',
-    city: '',
-  });
+  const [locationData, setlocationData] = useState(initialLocationData);
 
- function handleCountrySelect(country) {
-    setSelectedCountry(country);
+  function handleCountrySelect(country) {
+    handleLocationParam('country', country);
     fetch(`http://localhost:9000/countries/cities?country=${country}`)
-        .then((res) => {
-          return res.json();
-        })
-        .then((data) => {
-          console.log("cities: " + data);
-          setCities(data);
-        });
-     
-  };
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log("cities: " + data);
+        setCities(data);
+      });
+  }
+
+  function handleLocationParam(param, value) {
+    let data = JSON.parse(JSON.stringify(locationData));
+    data[param] = value;
+    console.log(data);
+    setlocationData(data);
+    setParentLocationData(data);
+    // console.log(setParentListingData);
+  }
 
   useEffect(() => {
     if (countries.length === 0) {
@@ -44,13 +48,6 @@ export default function LocationForm() {
     }
   });
 
-  function setSelectedCity(city) {
-    setSelected({country: selected.country, city:city})
-  }
-  function setSelectedCountry(country) {
-    setSelected({country: country, city:''})
-  }
-
   return (
     <Fragment>
       <Typography variant="h6" gutterBottom>
@@ -61,23 +58,28 @@ export default function LocationForm() {
           <Autocomplete
             disablePortal
             id="selectCountry"
-            onChange={(event,value)=>handleCountrySelect(value)}
+            value={locationData.country}
+            onChange={(event, value) => handleCountrySelect(value)}
             options={countries}
             fullWidth
             variant="standard"
-            renderInput={(params) => <TextField {...params} required label="Country" />}
+            renderInput={(params) => (
+              <TextField {...params} required label="Country" />
+            )}
           />
         </Grid>
         <Grid item xs={6} md={6}>
           <Autocomplete
             disablePortal
             id="selectCity"
-            value={selected.city}
-            onChange={(event,value)=>setSelectedCity(value)}
+            value={locationData.city}
+            onChange={(event, value)=>handleLocationParam('city', value)}
             options={cities}
             fullWidth
             variant="standard"
-            renderInput={(params) => <TextField {...params} required label="City" />}
+            renderInput={(params) => (
+              <TextField {...params} required label="City" />
+            )}
           />
         </Grid>
         <Grid item xs={12}>
@@ -86,6 +88,8 @@ export default function LocationForm() {
             id="address"
             name="address"
             label="Address"
+            value={locationData.address}
+            onChange={(event)=>handleLocationParam('address', event.target.value)}
             fullWidth
             variant="outlined"
             helperText="without city and Country"
