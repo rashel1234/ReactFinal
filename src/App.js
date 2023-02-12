@@ -26,7 +26,7 @@ function App() {
           <ApartmentsPage />
         </Route>
         <Route path='/addlisting'>
-          <ManageListing />
+          <ManageListing id={null}/>
         </Route>
       </Switch>
     </div>

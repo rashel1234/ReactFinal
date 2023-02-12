@@ -25,30 +25,73 @@ const steps = [
 const theme = createTheme();
 
 export default function ManageListing() {
+  const [initComplete, setInitComplete] = useState(false);
   const [listingData, setListingData] = useState({
     name: "",
     description: "",
-    rooms: '',
+    rooms: "",
     price: 100,
     startDate: new Date(),
     endDate: new Date(),
   });
   const [locationData, setLocationData] = useState({
-    address: '',
-    country: '',
-    city: '',
+    address: "",
+    country: "",
+    city: "",
   });
   const [activeStep, setActiveStep] = useState(0);
-  const [data, setData] = useState();
+
+  useEffect(() => {
+    console.log(initComplete);
+    if (!initComplete) {
+      const id = new URLSearchParams(window.location.search).get("id");
+      if (id) {
+        fetch(`http://localhost:9000/apartmentsData/id?id=${id}`)
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            setListingData({
+              name: data["name"],
+              description: data["description"],
+              rooms: data["rooms"],
+              price: data["price"],
+              startDate: data["startDate"],
+              endDate: data["endDate"],
+            });
+            setLocationData({
+              address: data["address"],
+              country: data["country"],
+              city: data["city"],
+            });
+            setInitComplete(true);
+          });
+      }
+    } else {
+      setInitComplete(true);
+    }
+  });
 
   function getStepContent(step) {
     switch (step) {
       case 0:
-        return <ListingForm setParentListingData={setListingData} initialListingData={listingData}/>;
+        return (
+          <ListingForm
+            setParentListingData={setListingData}
+            initialListingData={listingData}
+          />
+        );
       case 1:
-        return <LocationForm setParentLocationData={setLocationData} initialLocationData={locationData}/>;
+        return (
+          <LocationForm
+            setParentLocationData={setLocationData}
+            initialLocationData={locationData}
+          />
+        );
       case 2:
-        return <Review finaldata={Object.assign({}, listingData,locationData)} />;
+        return (
+          <Review finaldata={Object.assign({}, listingData, locationData)} />
+        );
       default:
         throw new Error("Unknown step");
     }
@@ -56,14 +99,46 @@ export default function ManageListing() {
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
-  };
+    if (activeStep === steps.length - 1){ //if publish
+    handlePublish();
+    }
+    };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
-  function insertdata(){
-    
+  function handlePublish() {
+    const id = new URLSearchParams(window.location.search).get("id");
+    if (id != null) {
+      fetch(`http://localhost:9000/apartmentsData/id?id=${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Object.assign({}, listingData, locationData)),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log("added apt!");
+        });
+    } else { //insert
+      fetch("http://localhost:9000/apartmentsData", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Object.assign({}, listingData, locationData)),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log("added apt!");
+        });
+    }
   }
 
   return (

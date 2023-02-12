@@ -1,5 +1,6 @@
 const { response } = require("express");
 const mongoose = require("mongoose");
+var ObjectId = require("mongoose").Types.ObjectId;
 
 function connectToMongo() {
   mongoose
@@ -100,6 +101,19 @@ async function getApartments() {
 
   return JSON.stringify(apartmentsData);
 }
+async function getApartmentbyId(id) {
+  apt = await apartment.findById(id).exec();
+  return apt;
+}
+async function updateApartmentbyId(id, updatedApt) {
+  apartment.findByIdAndUpdate(id,updatedApt, (err, res) => {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log(res);
+    }
+  });  
+}
 
 async function insertUser(userObject) {
   var userRecord = new user(userObject);
@@ -113,14 +127,14 @@ async function insertUser(userObject) {
   });
 }
 
-async function insertApartment(aptData){
+async function insertApartment(aptData) {
   var aptRecord = new apartment(aptData);
 
-  aptRecord.save((err, user) => {
+  aptRecord.save((err, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(user.fullName);
+      console.log(res);
     }
   });
 }
@@ -147,9 +161,8 @@ async function getCountries() {
   return JSON.stringify(countriesList.map((obj) => obj.country));
 }
 async function getCitiesByCountry(countryInput) {
-  const citiesList = await country
-    .findOne({ country: countryInput });
-    
+  const citiesList = await country.findOne({ country: countryInput });
+
   return JSON.stringify(citiesList.cities);
 }
 
@@ -157,6 +170,8 @@ module.exports = {
   getApartments,
   insertUser,
   insertApartment,
+  updateApartmentbyId,
+  getApartmentbyId,
   scrapeCountries,
   getCountries,
   getCitiesByCountry,

@@ -61,7 +61,7 @@ const ApartmentsComponent = () => {
                             <div>{apartment.rooms} Rooms</div>
                         </span>
                         <a href="#" className="btn btn-primary">More</a>
-                        <a href="#" className="btn btn-primary">Edit</a>
+                        <a href={`/addlisting?id=${apartment._id}`} className="btn btn-primary">Edit</a>
                         <a href="#" className="btn btn-primary">Delete</a>
                         </div>
                     </div>
