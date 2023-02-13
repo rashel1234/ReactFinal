@@ -102,4 +102,12 @@ async function getUserByEmail(email) {
     return JSON.stringify(result);
 }
 
-module.exports = {getUserByEmail, getApartments, insertUser, connectToMongo}
+async function updateUser(userObject) {
+    console.log(userObject)
+    let filter = {'email': userObject.email}
+
+    let res = await user.findOneAndUpdate(filter, userObject, {new: true});
+    console.log(res);
+}
+
+module.exports = {updateUser, getUserByEmail, getApartments, insertUser, connectToMongo}
