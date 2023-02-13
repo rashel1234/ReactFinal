@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import About from './pages/About';
 
 import ManageListing from './pages/ManageListing.js';
+import Logout from './pages/Logout';
 
 function App() {
   return (
@@ -28,6 +29,9 @@ function App() {
         <Route path='/addlisting'>
           <ManageListing id={null}/>
         </Route>
+        <Route path='/logout'>
+          <Logout/>
+        </Route>        
       </Switch>
     </div>
   );

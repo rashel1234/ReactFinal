@@ -15,7 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import HouseIcon from "@mui/icons-material/House";
 
 const pages = ["apartments", "About","addlisting"];
-const settings = ["Auth", "Profile", "Account", "Dashboard", "HouseIconut"];
+const settings = ["Auth", "Profile", "Logout"];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);

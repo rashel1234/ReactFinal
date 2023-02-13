@@ -60,18 +60,26 @@ const apartmentSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   fullName: {
-    type: String,
-    require: true,
+      type: String,
+      require: true
   },
   email: {
-    type: String,
-    require: true,
+      type: String,
+      require: true
   },
   type: {
-    type: String,
-    require: true,
+      type: String,
+      require: true
   },
-});
+  age: {
+      type: Number,
+      min: 18
+  },
+  address: {
+      type: String
+  }
+})
+
 
 const countriesSchema = new mongoose.Schema({
   iso2: {
@@ -127,6 +135,14 @@ async function insertUser(userObject) {
   });
 }
 
+async function getUserByEmail(email) {
+  let result = {};
+
+  result = await user.findOne({'email': email})
+
+  return JSON.stringify(result);
+}
+
 async function insertApartment(aptData) {
   var aptRecord = new apartment(aptData);
 
@@ -169,6 +185,7 @@ async function getCitiesByCountry(countryInput) {
 module.exports = {
   getApartments,
   insertUser,
+  getUserByEmail,
   insertApartment,
   updateApartmentbyId,
   getApartmentbyId,
