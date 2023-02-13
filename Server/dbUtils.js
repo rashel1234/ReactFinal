@@ -135,6 +135,14 @@ async function insertUser(userObject) {
   });
 }
 
+async function updateUser(userObject) {
+  console.log(userObject)
+  let filter = {'email': userObject.email}
+
+  let res = await user.findOneAndUpdate(filter, userObject, {new: true});
+  console.log(res);
+}
+
 async function getUserByEmail(email) {
   let result = {};
 
@@ -185,6 +193,7 @@ async function getCitiesByCountry(countryInput) {
 module.exports = {
   getApartments,
   insertUser,
+  updateUser,
   getUserByEmail,
   insertApartment,
   updateApartmentbyId,

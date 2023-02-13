@@ -1,5 +1,5 @@
 var express = require('express');
-const { insertUser, getUserByEmail } = require('../dbUtils');
+const { insertUser, getUserByEmail, updateUser } = require('../dbUtils');
 var router = express.Router();
 
 router.post('/', function(req, res, next) {
@@ -13,6 +13,13 @@ router.post('/byEmail', function(req, res, next) {
   console.log(req.body);
   getUserByEmail(req.body.email)
   .then(userData => res.send(userData))
+  .catch(err => console.log(err));
+});
+
+router.post('/update', function(req, res, next) {
+  console.log(req.body);
+  updateUser(req.body)
+  .then(() => res.sendStatus(200))
   .catch(err => console.log(err));
 });
 
