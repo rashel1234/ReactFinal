@@ -62,6 +62,13 @@ const userSchema = new mongoose.Schema({
     type: {
         type: String,
         require: true
+    },
+    age: {
+        type: Number,
+        min: 18
+    },
+    address: {
+        type: String
     }
 })
 
@@ -87,4 +94,12 @@ async function insertUser(userObject) {
     });
 }
 
-module.exports = {getApartments, insertUser, connectToMongo}
+async function getUserByEmail(email) {
+    let result = {};
+
+    result = await user.findOne({'email': email})
+
+    return JSON.stringify(result);
+}
+
+module.exports = {getUserByEmail, getApartments, insertUser, connectToMongo}

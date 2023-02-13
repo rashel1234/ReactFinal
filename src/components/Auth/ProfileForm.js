@@ -10,13 +10,8 @@ const ProfileForm = () => {
   const passwordInputRef = useRef(); 
   const fullNameInputRef = useRef();
 
-  const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [userType, setUserType] = useState("");
-
-  const switchAuthModeHandler = () => {
-    setIsLogin((prevState) => !prevState);
-  };
 
   const handleUserType = (event) => {
     setUserType(event.target.value)
@@ -77,6 +72,7 @@ const submitHandler = (event) =>{
       return res.text();
     })
     .then(data => {
+      localStorage.setItem("user", enteredEmail);
       console.log(data);
     })
     .catch(err => {

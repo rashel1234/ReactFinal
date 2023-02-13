@@ -50,6 +50,7 @@ const submitHandler = (event) =>{
       }
     }).then( (data) => {
       console.log(data);
+      localStorage.setItem("user", enteredEmail);
       navigate.push("/profile")
     }).catch (err => {
       alert (err.message);

@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
+import useLogedInUserType from "../Auth/LoginTypeHook";
 import AdvancedSearch from "./AdvancedSearch";
 import SearchBar from "./SearchBar";
 
 const ApartmentsComponent = () => {
     const [apartmentsData, setApartmentsData] = useState([]);
     const [filteredApartments, setFilteredApartments] = useState([]);
+    const userType = useLogedInUserType(localStorage.getItem("user"));
     
     console.log(apartmentsData);
 
@@ -14,9 +16,13 @@ const ApartmentsComponent = () => {
             return res.json();
         })
         .then((data) => {
-            console.log(data);
-            setApartmentsData(data);
-            setFilteredApartments(data);
+            let result = data;
+            if(userType == "Owner") {
+                result = data.filter(apartment => apartment.owner == localStorage.getItem("user"));
+            }
+
+            setApartmentsData(result);
+            setFilteredApartments(result);
         });
     }, []);
 
@@ -61,8 +67,12 @@ const ApartmentsComponent = () => {
                             <div>{apartment.rooms} Rooms</div>
                         </span>
                         <a href="#" className="btn btn-primary">More</a>
-                        <a href="#" className="btn btn-primary">Edit</a>
-                        <a href="#" className="btn btn-primary">Delete</a>
+                        {userType == "Owner" && (
+                            <>
+                            <a href="#" className="btn btn-primary">Edit</a>
+                            <a href="#" className="btn btn-primary">Delete</a>
+                            </>
+                        )}
                         </div>
                     </div>
             </div>))}
