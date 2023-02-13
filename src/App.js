@@ -4,6 +4,7 @@ import Layout from './components/Layout/Layout';
 import ApartmentsPage from './pages/ApartmentsPage';
 import AuthPage from './pages/AuthPage';
 import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         </Route>
         <Route path='/apartments'>
           <ApartmentsPage />
+        </Route>
+        <Route path='/profile'>
+          <ProfilePage />
         </Route>
       </Switch>
     </Layout>
