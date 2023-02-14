@@ -163,6 +163,45 @@ async function insertApartment(aptData) {
   });
 }
 
+async function getStatistics() {
+  try {
+    const data = await apartment.aggregate([
+      {
+        $group: {
+          _id: "$country",
+          numberOfProperties: { $sum: 1 },
+          averagePrice: { $avg: "$price" }
+        }
+      }
+    ]);
+    const formattedData = data.map(item => ({
+      country: item._id,
+      properties: item.numberOfProperties,
+      averagePrice: item.averagePrice
+    }));
+    return formattedData;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const getUsersForView = async () => {
+  const users = await user.find({});
+  const userData = [];
+
+  users.forEach(user => {
+    userData.push({
+      name: user.fullName,
+      email: user.email,
+      age: user.age,
+      address: user.address
+    });
+  });
+
+  return userData;
+};
+
 async function scrapeCountries() {
   fetch("https://countriesnow.space/api/v0.1/countries", {})
     .then((promise) => promise.json())
@@ -193,8 +232,10 @@ async function getCitiesByCountry(countryInput) {
 module.exports = {
   getApartments,
   insertUser,
+  getUsersForView,
   updateUser,
   getUserByEmail,
+  getStatistics,
   insertApartment,
   updateApartmentbyId,
   getApartmentbyId,

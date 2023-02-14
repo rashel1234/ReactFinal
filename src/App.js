@@ -8,6 +8,9 @@ import About from './pages/About';
 import ManageListing from './pages/ManageListing.js';
 import Logout from './pages/Logout';
 import ProfilePage from './pages/ProfilePage';
+import Statistics from './pages/Statistics';
+import UserList from './pages/UserList';
+import AddUser from './pages/AddUser';
 
 function App() {
   return (
@@ -34,6 +37,15 @@ function App() {
         </Route>        
         <Route path='/profile'>
           <ProfilePage />
+        </Route>
+        <Route path='/statistics'>
+          <Statistics/>
+        </Route>
+        <Route path='/UserList'>
+          <UserList/>
+        </Route>        
+        <Route path='/addUser'>
+          <AddUser />
         </Route>
       </Switch>
     </div>

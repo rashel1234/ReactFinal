@@ -9,6 +9,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var apartmentsRouter = require('./routes/apartments');
 var countriesRouter = require('./routes/countries');
+var statisticsRouter = require('./routes/statistics');
 const { connectToMongo, scrapeCountries } = require('./dbUtils');
 
 var app = express();
@@ -26,6 +27,7 @@ app.use(cors());
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/statistics', statisticsRouter);
 app.use('/apartmentsData', apartmentsRouter);
 app.use('/countries', countriesRouter);
 
