@@ -33,11 +33,15 @@ const apartmentSchema = new mongoose.Schema({
   },
   startDate: {
     type: Date,
-    require: true,
+    require: false,
   },
   endDate: {
     type: Date,
-    require: true,
+    require: false,
+  },
+  imgURL: {
+    type: String,
+    require: false,
   },
   rooms: {
     type: Number,
@@ -60,26 +64,25 @@ const apartmentSchema = new mongoose.Schema({
 
 const userSchema = new mongoose.Schema({
   fullName: {
-      type: String,
-      require: true
+    type: String,
+    require: true,
   },
   email: {
-      type: String,
-      require: true
+    type: String,
+    require: true,
   },
   type: {
-      type: String,
-      require: true
+    type: String,
+    require: true,
   },
   age: {
-      type: Number,
-      min: 18
+    type: Number,
+    min: 18,
   },
   address: {
-      type: String
-  }
-})
-
+    type: String,
+  },
+});
 
 const countriesSchema = new mongoose.Schema({
   iso2: {
@@ -114,13 +117,13 @@ async function getApartmentbyId(id) {
   return apt;
 }
 async function updateApartmentbyId(id, updatedApt) {
-  apartment.findByIdAndUpdate(id,updatedApt, (err, res) => {
+  apartment.findByIdAndUpdate(id, updatedApt, (err, res) => {
     if (err) {
       console.log(err);
     } else {
       console.log(res);
     }
-  });  
+  });
 }
 
 async function insertUser(userObject) {
@@ -136,17 +139,17 @@ async function insertUser(userObject) {
 }
 
 async function updateUser(userObject) {
-  console.log(userObject)
-  let filter = {'email': userObject.email}
+  console.log(userObject);
+  let filter = { email: userObject.email };
 
-  let res = await user.findOneAndUpdate(filter, userObject, {new: true});
+  let res = await user.findOneAndUpdate(filter, userObject, { new: true });
   console.log(res);
 }
 
 async function getUserByEmail(email) {
   let result = {};
 
-  result = await user.findOne({'email': email})
+  result = await user.findOne({ email: email });
 
   return JSON.stringify(result);
 }
@@ -170,32 +173,32 @@ async function getStatistics() {
         $group: {
           _id: "$country",
           numberOfProperties: { $sum: 1 },
-          averagePrice: { $avg: "$price" }
-        }
-      }
+          averagePrice: { $avg: "$price" },
+        },
+      },
     ]);
-    const formattedData = data.map(item => ({
+    const formattedData = data.map((item) => ({
       country: item._id,
       properties: item.numberOfProperties,
-      averagePrice: item.averagePrice
+      averagePrice: item.averagePrice,
     }));
     return formattedData;
   } catch (error) {
     console.error(error);
     return [];
   }
-};
+}
 
 const getUsersForView = async () => {
   const users = await user.find({});
   const userData = [];
 
-  users.forEach(user => {
+  users.forEach((user) => {
     userData.push({
       name: user.fullName,
       email: user.email,
       age: user.age,
-      address: user.address
+      address: user.address,
     });
   });
 

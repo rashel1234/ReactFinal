@@ -10,6 +10,8 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DateTimePicker } from "@mui/x-date-pickers/DateTimePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+import { ImageList } from "@mui/material";
+import ImageListItem from "@mui/material";
 
 export default function ListingForm({setParentListingData, initialListingData}) {
   const [listingData, setListingData] = useState(initialListingData);
@@ -96,34 +98,19 @@ export default function ListingForm({setParentListingData, initialListingData}) 
             variant="standard"
           />
         </Grid>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Grid item xs={12} sm={6}>
-            <DesktopDatePicker
-              label="Start Date"
-              inputFormat="DD/MM/YYYY"
-              value={listingData.startDate}
-              onChange={(event)=>handleListingParam('startDate', event.target.value)}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <DesktopDatePicker
-              label="End Date"
-              inputFormat="DD/MM/YYYY"
-              value={listingData.endDate}
-              onChange={(event)=>handleListingParam('endDate', event.target.value)}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </Grid>
-        </LocalizationProvider>
-        {/* <Grid item xs={12}>
-          <FormControlLabel
-            control={
-              <Checkbox color="secondary" name="saveAddress" value="yes" />
-            }
-            label="Use this address for payment details"
+        <Grid item xs={12}>
+          <TextField
+            multiline
+            id="imgURL"
+            value={listingData.imgURL}
+            onChange={(event)=>handleListingParam('imgURL', event.target.value)}
+            name="imgURL"
+            label="Images src list, each src on a new line"
+            fullWidth
+            autoComplete="given-name"
+            variant="standard"
           />
-        </Grid> */}
+        </Grid>
       </Grid>
     </Fragment>
   );

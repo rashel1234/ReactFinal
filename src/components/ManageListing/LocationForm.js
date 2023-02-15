@@ -15,7 +15,12 @@ export default function LocationForm({
   const [locationData, setlocationData] = useState(initialLocationData);
 
   function handleCountrySelect(country) {
-    handleLocationParam('country', country);
+    setlocationData({
+      address:locationData.address,
+      country:country,
+      city:''
+    })
+    // handleLocationParam('country', country);
     fetch(`http://localhost:9000/countries/cities?country=${country}`)
       .then((res) => {
         return res.json();
