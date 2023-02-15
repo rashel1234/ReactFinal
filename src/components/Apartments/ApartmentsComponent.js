@@ -2,13 +2,23 @@ import { useEffect, useState } from "react";
 import useLogedInUserType from "../Auth/LoginTypeHook";
 import AdvancedSearch from "./AdvancedSearch";
 import SearchBar from "./SearchBar";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@material-ui/core";
+import Property from "../../pages/Property";
 
 const ApartmentsComponent = () => {
+  const [selectedApartment, setSelectedApartment] = useState(null);
+  const [showPopUp, setShowPopUp] = useState(false);
   const [apartmentsData, setApartmentsData] = useState([]);
   const [filteredApartments, setFilteredApartments] = useState([]);
   const userType = useLogedInUserType(localStorage.getItem("user"));
 
-  console.log(apartmentsData);
+  // console.log(apartmentsData);
 
   useEffect(() => {
     fetch("http://localhost:9000/apartmentsData")
@@ -64,6 +74,12 @@ const ApartmentsComponent = () => {
     }
   };
 
+  const handleMoreClick = (apartment) => {
+    console.log(apartment);
+    setSelectedApartment(apartment);
+    setShowPopUp(true);
+  };
+
   return (
     <div>
       <SearchBar
@@ -80,7 +96,7 @@ const ApartmentsComponent = () => {
         {filteredApartments.map((apartment) => (
           <div className="col mb-4" key={apartment._id}>
             <div className="card" style={{ width: "18rem" }}>
-              <img src="..." className="card-img-top" alt="..." />
+              <img src={apartment.imgURL.split('/n')[0]} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{apartment.name}</h5>
                 <span className="card-text">
@@ -89,7 +105,11 @@ const ApartmentsComponent = () => {
                   <div>{apartment.price}$ per night</div>
                   <div>{apartment.rooms} Rooms</div>
                 </span>
-                <a href="#" className="btn btn-primary">
+                <a
+                  href="#"
+                  className="btn btn-primary"
+                  onClick={() => handleMoreClick(apartment)}
+                >
                   More
                 </a>
 
@@ -111,6 +131,16 @@ const ApartmentsComponent = () => {
           </div>
         ))}
       </div>
+
+      <Dialog open={showPopUp} onClose={() => setShowPopUp(false)}>
+        <DialogTitle>Apartment Details</DialogTitle>
+        <DialogContent>
+          <Property apartment={selectedApartment}/>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowPopUp(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };

@@ -29,29 +29,30 @@ const useStyles = makeStyles((theme) => ({
 
 export const property = {
     name: 'Luxury Beachfront Villa',
-    address: '123 Ocean Ave, Miami Beach, FL 33139',
+    address: '123 Ocean Ave',
+    country: 'FL 33139',
+    city: 'Miami Beach',
     rooms: 3,
     price: 200,
-    images: [
+    imgURL: [
       'https://via.placeholder.com/800x600/caf4fe/ffffff?text=Image+1',
       'https://via.placeholder.com/800x600/caf4fe/ffffff?text=Image+2',
       'https://via.placeholder.com/800x600/caf4fe/ffffff?text=Image+3',
     ],
-    unavailableDates: [
-      '2023-02-15',
-      '2023-02-16',
-      '2023-02-17',
-      '2023-02-18',
-    ],
+    unavailableDates:
+      '2023-02-15,2023-02-16,2023-02-17,2023-02-18'
+    ,
+    description: "Description"
   };
   
 
-const Property = ({ property1 }) => {
+const Property = ( props ) => {
   const classes = useStyles();
   const [showCalendar, setShowCalendar] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
 
   const handleCalendar = () => {
+    console.log(props.apartment.imgURL.split('\n'));
     setShowCalendar(!showCalendar);
   };
 
@@ -60,17 +61,21 @@ const Property = ({ property1 }) => {
     setShowCalendar(false);
   };
 
+  const book = () => {
+    let apt = props.apartment;
+  }
+
   return (
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Carousel>
-            {property.images.map((image) => (
+            {props.apartment.imgURL.split('\n').map((image) => (
               <CardMedia
                 key={image}
                 className={classes.media}
                 image={image}
-                title={property.name}
+                title={props.apartment.name}
               />
             ))}
           </Carousel>
@@ -79,13 +84,16 @@ const Property = ({ property1 }) => {
           <Card className={classes.card}>
             <CardContent>
               <Typography className={classes.itemName} variant="h5">
-                {property.name}
+                {props.apartment.name}
               </Typography>
               <Typography variant="subtitle1">
-                {property.address}
+                {props.apartment.address}, {props.apartment.city}, {props.apartment.country}
               </Typography>
               <Typography variant="subtitle2">
-                {property.rooms} rooms - {property.price}/night
+                {props.apartment.rooms} rooms - {props.apartment.price}$/night
+              </Typography>
+              <Typography variant="subtitle2">
+                Description - {props.apartment.description}
               </Typography>
               <Button
                 variant="contained"
@@ -98,7 +106,7 @@ const Property = ({ property1 }) => {
                 <Calendar
                   onChange={handleDateSelect}
                   tileDisabled={({ date, view }) =>
-                    property.unavailableDates.includes(
+                    props.apartment.unavailableDates.split(',').includes(
                       date.toLocaleDateString()
                     )
                   }
