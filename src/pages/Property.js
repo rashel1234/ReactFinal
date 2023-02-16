@@ -63,6 +63,23 @@ const Property = ( props ) => {
 
   const book = () => {
     let apt = props.apartment;
+    apt.unavailableDates += `,${selectedDate.toISOString().split('T')[0]}`
+
+
+    //To update apartment with apt._id with apt object with the updated booked dates
+    fetch(`http://localhost:9000/apartmentsData/id?id=${apt._id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(Object.assign({}, apt)),
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          console.log("updated apt!");
+        });
   }
 
   return (
@@ -95,6 +112,11 @@ const Property = ( props ) => {
               <Typography variant="subtitle2">
                 Description - {props.apartment.description}
               </Typography>
+              {selectedDate && (
+                <Typography variant="subtitle2">
+                Selected Date - {selectedDate.toISOString().split('T')[0]}
+              </Typography>
+              )}
               <Button
                 variant="contained"
                 color="primary"
@@ -113,7 +135,7 @@ const Property = ( props ) => {
                 />
               )}
               {selectedDate && (
-                <Button variant="contained" color="secondary">
+                <Button onClick={book} variant="contained" color="secondary">
                   Book Now
                 </Button>
               )}
