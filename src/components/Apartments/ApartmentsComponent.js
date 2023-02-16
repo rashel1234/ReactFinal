@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+
 import useLogedInUserType from "../Auth/LoginTypeHook";
 import AdvancedSearch from "./AdvancedSearch";
 import SearchBar from "./SearchBar";
@@ -19,14 +20,14 @@ const ApartmentsComponent = () => {
         let result = data;
         if (userType == "Owner") {
           result = data.filter(
-            (apartment) => apartment.owner == localStorage.getItem("user")
+            (apartment) => apartment.owner === localStorage.getItem("user")
           );
         }
-
+        
         setApartmentsData(result);
         setFilteredApartments(result);
       });
-  }, []);
+  }, [userType]);
 
   const handleFilter = (input) => {
     setFilteredApartments(
