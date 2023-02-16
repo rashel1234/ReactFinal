@@ -31,8 +31,7 @@ export default function ManageListing() {
     description: "",
     rooms: "",
     price: 100,
-    startDate: new Date(),
-    endDate: new Date(),
+    imgURL:""
   });
   const [locationData, setLocationData] = useState({
     address: "",
@@ -56,8 +55,9 @@ export default function ManageListing() {
               description: data["description"],
               rooms: data["rooms"],
               price: data["price"],
-              startDate: data["startDate"],
-              endDate: data["endDate"],
+               // startDate: data["startDate"],
+              // endDate: data["endDate"],
+              imgURL: data["imgURL"]
             });
             setLocationData({
               address: data["address"],
