@@ -40,8 +40,8 @@ const apartmentSchema = new mongoose.Schema({
     require: false,
   },
   unavailableDates: {
-    type:String,
-    require:false
+    type: String,
+    require: false,
   },
   imgURL: {
     type: String,
@@ -128,6 +128,16 @@ async function updateApartmentbyId(id, updatedApt) {
       console.log(res);
     }
   });
+}
+
+async function deleteApartmentbyId(id) {
+  apartment.findByIdAndDelete(id, (err, res) => { 
+      if (err) {
+        console.log(err);
+      } else {
+        console.log("Deleted apartment " + id);
+      }
+    });
 }
 
 async function insertUser(userObject) {
@@ -247,6 +257,7 @@ module.exports = {
   updateApartmentbyId,
   getApartmentbyId,
   scrapeCountries,
+  deleteApartmentbyId,
   getCountries,
   getCitiesByCountry,
   connectToMongo,

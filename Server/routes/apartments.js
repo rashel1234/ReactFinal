@@ -29,6 +29,14 @@ router.post('/', function(req, res) {
     .then(apartmentData => res.send(apartmentData))
     .catch(err => res.send(err));    
   });
+
+  router.delete('/id', function(req, res) {
+    console.log('id of ' + req.query.id);
+    console.log(req.body);
+    dbUtils.deleteApartmentbyId(req.query.id)
+    .then(res.send("deleted apt"))
+    .catch(err => res.send(err));    
+  });
   
   
 module.exports = router; 

@@ -121,7 +121,10 @@ const ApartmentsComponent = () => {
                     >
                       Edit
                     </a>
-                    <a href="#" className="btn btn-primary">
+                    <a
+                      href={`/deleteapt?id=${apartment._id}`}
+                      className="btn btn-primary"
+                    >
                       Delete
                     </a>
                   </>

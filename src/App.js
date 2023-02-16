@@ -11,6 +11,7 @@ import ProfilePage from './pages/ProfilePage';
 import Statistics from './pages/Statistics';
 import UserList from './pages/UserList';
 import AddUser from './pages/AddUser';
+import Delete from './pages/Delete';
 
 function App() {
   return (
@@ -32,6 +33,9 @@ function App() {
         <Route path='/addlisting'>
           <ManageListing id={null}/>
         </Route>
+        <Route path='/deleteapt'>
+          <Delete id={null}/>
+        </Route>   
         <Route path='/logout'>
           <Logout/>
         </Route>        
