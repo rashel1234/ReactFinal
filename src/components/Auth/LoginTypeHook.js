@@ -17,9 +17,10 @@ function useLogedInUserType(userEmail) {
             return res.json();
         })
         .then((data) => {
+          if(data != null)
             setType(data.type);
         });
-  });
+  }, []);
 
   return type;
 }

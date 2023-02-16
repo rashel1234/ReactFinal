@@ -64,6 +64,10 @@ const apartmentSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
+  owner: {
+    type: String,
+    require: true,
+  }
 });
 
 const userSchema = new mongoose.Schema({

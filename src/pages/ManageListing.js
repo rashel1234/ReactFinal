@@ -31,10 +31,11 @@ export default function ManageListing() {
     description: "",
     rooms: "",
     price: 100,
-    // startDate: new Date(),
-    // endDate: new Date(),
     imgURL:"",
-    unavailableDates:""
+    unavailableDates:"",
+    startDate: new Date(),
+    endDate: new Date(),
+    owner: localStorage.getItem("user")
   });
   const [locationData, setLocationData] = useState({
     address: "",
@@ -61,7 +62,8 @@ export default function ManageListing() {
               startDate: data["startDate"],
               endDate: data["endDate"],
               imgURL: data["imgURL"],
-              unavailableDates: data["unavailableDates"]
+              unavailableDates: data["unavailableDates"],
+              owner: data["owner"]
             });
             setLocationData({
               address: data["address"],
