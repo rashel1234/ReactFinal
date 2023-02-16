@@ -90,14 +90,14 @@ const Property = (props) => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Carousel>
-            {props.apartment.imgURL.split("\n").map((image) => (
+            {props.apartment.imgURL ? props.apartment.imgURL.split("\n").map((image) => (
               <CardMedia
                 key={image}
                 className={classes.media}
                 image={image}
                 title={props.apartment.name}
               />
-            ))}
+            )) : <></>}
           </Carousel>
         </Grid>
         <Grid item xs={12}>
