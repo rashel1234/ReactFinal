@@ -31,6 +31,8 @@ export default function ManageListing() {
     description: "",
     rooms: "",
     price: 100,
+    // startDate: new Date(),
+    // endDate: new Date(),
     imgURL:""
   });
   const [locationData, setLocationData] = useState({
@@ -55,8 +57,8 @@ export default function ManageListing() {
               description: data["description"],
               rooms: data["rooms"],
               price: data["price"],
-               // startDate: data["startDate"],
-              // endDate: data["endDate"],
+              startDate: data["startDate"],
+              endDate: data["endDate"],
               imgURL: data["imgURL"]
             });
             setLocationData({
@@ -119,7 +121,7 @@ export default function ManageListing() {
         body: JSON.stringify(Object.assign({}, listingData, locationData)),
       })
         .then((res) => {
-          return res.json();
+          return res;
         })
         .then((data) => {
           console.log("added apt!");
@@ -133,7 +135,7 @@ export default function ManageListing() {
         body: JSON.stringify(Object.assign({}, listingData, locationData)),
       })
         .then((res) => {
-          return res.json();
+          return res;
         })
         .then((data) => {
           console.log("added apt!");

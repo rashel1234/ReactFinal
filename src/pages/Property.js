@@ -65,6 +65,7 @@ const Property = ( props ) => {
     let apt = props.apartment;
     apt.unavailableDates += `,${selectedDate.toISOString().split('T')[0]}`
 
+    console.log(JSON.stringify(apt));
 
     //To update apartment with apt._id with apt object with the updated booked dates
     fetch(`http://localhost:9000/apartmentsData/id?id=${apt._id}`, {
@@ -75,7 +76,7 @@ const Property = ( props ) => {
         body: JSON.stringify(Object.assign({}, apt)),
       })
         .then((res) => {
-          return res.json();
+          return res;
         })
         .then((data) => {
           console.log("updated apt!");

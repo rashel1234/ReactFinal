@@ -96,7 +96,7 @@ const ApartmentsComponent = () => {
         {filteredApartments.map((apartment) => (
           <div className="col mb-4" key={apartment._id}>
             <div className="card" style={{ width: "18rem" }}>
-              <img src={apartment.imgURL.split('/n')[0]} className="card-img-top" alt="..." />
+              <img src={apartment.imgURL ? apartment.imgURL.split('/n')[0] : ''} className="card-img-top" alt="..." />
               <div className="card-body">
                 <h5 className="card-title">{apartment.name}</h5>
                 <span className="card-text">

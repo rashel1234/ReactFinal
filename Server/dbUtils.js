@@ -39,6 +39,10 @@ const apartmentSchema = new mongoose.Schema({
     type: Date,
     require: false,
   },
+  unavailableDates: {
+    type:String,
+    require:false
+  },
   imgURL: {
     type: String,
     require: false,
