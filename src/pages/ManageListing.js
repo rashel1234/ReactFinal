@@ -33,6 +33,7 @@ export default function ManageListing() {
     price: 100,
     startDate: new Date(),
     endDate: new Date(),
+    owner: localStorage.getItem("user")
   });
   const [locationData, setLocationData] = useState({
     address: "",
@@ -58,6 +59,7 @@ export default function ManageListing() {
               price: data["price"],
               startDate: data["startDate"],
               endDate: data["endDate"],
+              owner: localStorage.getItem("user")
             });
             setLocationData({
               address: data["address"],
