@@ -71,3 +71,15 @@
   background-color: transparent;
   color: #ae82cc;
 }
+
+.radio {
+  display: inline;
+  width: 15%!important;
+}
+
+.radioLabel {
+  color: white;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: inline!important;
+}
