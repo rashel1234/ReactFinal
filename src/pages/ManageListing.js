@@ -33,7 +33,8 @@ export default function ManageListing() {
     price: 100,
     // startDate: new Date(),
     // endDate: new Date(),
-    imgURL:""
+    imgURL:"",
+    unavailableDates:""
   });
   const [locationData, setLocationData] = useState({
     address: "",
@@ -59,7 +60,8 @@ export default function ManageListing() {
               price: data["price"],
               startDate: data["startDate"],
               endDate: data["endDate"],
-              imgURL: data["imgURL"]
+              imgURL: data["imgURL"],
+              unavailableDates: data["unavailableDates"]
             });
             setLocationData({
               address: data["address"],
